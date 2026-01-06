@@ -4,7 +4,7 @@ A beautiful, custom WinUI 3 media overlay that replaces the default Windows medi
 
 ![WinUI 3](https://img.shields.io/badge/WinUI-3-blue)
 ![.NET 8.0](https://img.shields.io/badge/.NET-8.0-purple)
-![Windows 11](https://img.shields.io/badge/Windows-11-0078D4)
+![Windows 10](https://img.shields.io/badge/Windows-11-0078D4)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
@@ -39,7 +39,9 @@ A beautiful, custom WinUI 3 media overlay that replaces the default Windows medi
 
 ## 🖼️ Screenshots
 
-> **Note**: Add screenshots of your flyout in action here!
+![PersonalFlyout in Action](Assets/Screenshots/Screenshot%202026-01-06%20232843.png)
+
+*The custom media flyout displaying album art, playback controls, and dynamic gradient background*
 
 ---
 
