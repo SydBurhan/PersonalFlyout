@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="PersonalFlyout.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFlyout"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+
+
+    <Grid x:Name="RootGrid" Background="Transparent" Opacity="0">
+        <Grid.Resources>
+            <Storyboard x:Key="ShowAnimation">
+                <DoubleAnimation Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3"/>
+                <DoubleAnimation Storyboard.TargetName="GridTranslate" Storyboard.TargetProperty="X" From="-20" To="0" Duration="0:0:0.3"/>
+            </Storyboard>
+            <Storyboard x:Key="ShowAnimationNext">
+                <DoubleAnimation Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3"/>
+                <DoubleAnimation Storyboard.TargetName="GridTranslate" Storyboard.TargetProperty="X" From="-40" To="0" Duration="0:0:0.3"/>
+            </Storyboard>
+            <Storyboard x:Key="ShowAnimationPrev">
+                <DoubleAnimation Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3"/>
+                <DoubleAnimation Storyboard.TargetName="GridTranslate" Storyboard.TargetProperty="X" From="40" To="0" Duration="0:0:0.3"/>
+            </Storyboard>
+            <Storyboard x:Key="HideAnimation">
+                <DoubleAnimation Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.3"/>
+                <DoubleAnimation Storyboard.TargetName="GridTranslate" Storyboard.TargetProperty="X" To="-20" Duration="0:0:0.3"/>
+            </Storyboard>
+        </Grid.Resources>
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="GridTranslate"/>
+        </Grid.RenderTransform>
+        <!-- Gradient Background -->
+        <Border x:Name="BackgroundLayer">
+             <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1A1A1A" Offset="0"/>
+                    <GradientStop Color="#2A2A2A" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <Border Background="Black" Opacity="0.25" CornerRadius="12"/>
+
+        <Grid Padding="12" RowSpacing="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Row 0: Art and Info -->
+            <!-- Row 0: Art, Text, Controls, Visualizer -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/> <!-- Art -->
+                    <ColumnDefinition Width="*"/>    <!-- Text -->
+                    <ColumnDefinition Width="Auto"/> <!-- Controls -->
+                    <ColumnDefinition Width="Auto"/> <!-- Visualizer -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Col 0: Art -->
+                <Border x:Name="AlbumArtBorder" Grid.Column="0" Width="60" Height="60" CornerRadius="30" Margin="0,0,15,0"/>
+
+                <!-- Col 1: Text -->
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock x:Name="TxtTitle" Foreground="White" FontSize="14" FontWeight="Bold" MaxWidth="180" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock x:Name="TxtArtist" Foreground="#D0D0D0" FontSize="12" MaxWidth="180" TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+
+                <!-- Col 2: Controls -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="5" VerticalAlignment="Center" Margin="0,30,30,0">
+                    <Button x:Name="BtnPrev" Background="Transparent" BorderThickness="0" Padding="5" Click="BtnPrev_Click">
+                        <SymbolIcon Symbol="Previous" Foreground="White"/>
+                    </Button>
+                    <Button x:Name="BtnPlayPause" Background="Transparent" BorderThickness="0" Padding="5" Click="BtnPlayPause_Click">
+                        <SymbolIcon x:Name="IconPlayPause" Symbol="Play" Foreground="White"/>
+                    </Button>
+                    <Button x:Name="BtnNext" Background="Transparent" BorderThickness="0" Padding="5" Click="BtnNext_Click">
+                        <SymbolIcon Symbol="Next" Foreground="White"/>
+                    </Button>
+                </StackPanel>
+
+                <!-- Col 3: Visualizer -->
+                <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="2" VerticalAlignment="Bottom" Height="20" Margin="0,0,3,0">
+                    <Rectangle x:Name="VisBar1" Width="4" Height="10" Fill="Black" RadiusX="2" RadiusY="2" Opacity="0.8"/>
+                    <Rectangle x:Name="VisBar2" Width="4" Height="15" Fill="Black" RadiusX="2" RadiusY="2" Opacity="0.8"/>
+                    <Rectangle x:Name="VisBar3" Width="4" Height="8" Fill="Black" RadiusX="2" RadiusY="2" Opacity="0.8"/>
+                    <Rectangle x:Name="VisBar4" Width="4" Height="12" Fill="Black" RadiusX="2" RadiusY="2" Opacity="0.8"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Row 1: Progress Bar -->
+            <Grid Grid.Row="1"  Margin="0,5,0,0"> 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="TxtCurrentTime" Grid.Column="0" Text="0:00" Foreground="#B0B0B0" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                
+                <ProgressBar x:Name="ProgressBar" Grid.Column="1" Value="0" Maximum="100" Height="10" VerticalAlignment="Center" Background="#30FFFFFF" Foreground="White"/>
+                
+                <TextBlock x:Name="TxtTotalTime" Grid.Column="2" Text="0:00" Foreground="#B0B0B0" FontSize="15" VerticalAlignment="Center" Margin="8,0,0,0"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PersonalFlyout (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "PersonalFlyout (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
